@@ -1,8 +1,16 @@
 import { Card, Col } from "react-bootstrap";
 import { MdDeleteForever } from "react-icons/md";
 
-export default function Note({ notes, handleSetNotes, id, heading, body, date, background, handleDeleteNote }) {
-
+export default function Note({
+  notes,
+  handleSetNotes,
+  id,
+  heading,
+  body,
+  date,
+  background,
+  handleDeleteNote,
+}) {
   const color = ["#00FFFF", "#8A2BE2", "#98FB98", "#fe9b72", "#e4ee91"];
 
   const colorStyle = {
@@ -19,7 +27,6 @@ export default function Note({ notes, handleSetNotes, id, heading, body, date, b
     const newColor = color.filter((color, index) => index === ind);
 
     const newArray = notes.map((e) => {
-
       console.log(e._id, id);
       if (e._id === id) {
         e.background = newColor.toString();
@@ -31,15 +38,17 @@ export default function Note({ notes, handleSetNotes, id, heading, body, date, b
     handleSetNotes(newArray);
   };
 
-const handleChange = (e) => {
-  const { name, value } = e.target;
-  notes.map((note)=>{
-if(note._id === id){
-  note.body = value;
-}
-  })
-
-};
+  const handleChange = (e) => {
+    notes.map((note) => {
+      if (note._id === id) {
+        if (e.body) {
+          note.body = e.body;
+        } else if (e.heading) {
+          note.heading = e.heading;
+        }
+      }
+    });
+  };
 
   return (
     <Col key={id} xs={12} md={6} xl={3}>
@@ -57,12 +66,17 @@ if(note._id === id){
             ></span>
           ))}
         </div>
-        <input className="heading p-1" defaultValue={heading} />
+        <input
+          name="heading"
+          className="heading p-1"
+          onChange={(e) => handleChange({ heading: e.target.value })}
+          defaultValue={heading}
+        />
         <hr />
         <textarea
           name="body"
           className="text-area p-1"
-          onChange={handleChange}
+          onChange={(e) => handleChange({ body: e.target.value })}
           defaultValue={body}
         ></textarea>
         <div className=" d-flex align-items-center justify-content-between note-footer">
