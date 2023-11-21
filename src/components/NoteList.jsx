@@ -1,6 +1,5 @@
 import { Row } from "react-bootstrap";
 import Note from "./Note";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoAddCircleOutline } from "react-icons/io5";
 import SearchNotes from "./searchNotes";
