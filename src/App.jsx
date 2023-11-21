@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 import Header from "./components/Header";
 import { Routes, Route } from "react-router-dom";
-// import Login from "./components/Login_copy";
 import Login from "./components/Login";
 import axios from "axios";
 import API_URL from "../config/global";
