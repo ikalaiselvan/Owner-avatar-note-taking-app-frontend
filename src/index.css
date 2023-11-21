@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap');
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.note{
+  background: hsla(36, 100%, 90%, 0.89);
+  
+  min-height: 300px;
+}
+.delete-icon{
+  display: none;
+}
+.card:hover{
+  .delete-icon{
+    display: block;
+  }
+}
+.text-area{
+  border: none;
+  resize: none;
+  min-height: 250px;
+  background-color: transparent;
+  text-align: justify;
+  white-space: pre-wrap;
+  font-family: 'Roboto Mono', monospace;
+  font-size: small;
+}
+.text-area::-webkit-scrollbar{
+  display: none;
+}
+.text-area:focus{
+  outline: none;
+}
+
+
+.heading{
+  background: transparent;
+  border: none;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  text-wrap: wrap;
+}
+.heading:focus{
+  outline: none;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  background-color: rgb(245, 242, 242);
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 5px;
+  margin-bottom: 1.5em;
+  width: 100%;
+}
+
+.search input {
+  border: none;
+  background-color: transparent;
+  width: 100%;
+}
+
+.search input:focus {
+  outline: none;
+}
+
+
