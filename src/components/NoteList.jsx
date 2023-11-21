@@ -2,8 +2,8 @@ import { Row } from "react-bootstrap";
 import Note from "./Note";
 import { useNavigate } from "react-router-dom";
 import { IoAddCircleOutline } from "react-icons/io5";
-import SearchNotes from "./searchNotes";
 import { RiLogoutCircleLine } from "react-icons/ri";
+import SearchNotes from './SearchNotes';
 
 export default function NoteList({
   notes,
