@@ -10,7 +10,7 @@ import API_URL from "../config/global";
 import Signup from "./components/Signup";
 
 function App() {
-  const [notes, setNotes] = useState();
+  const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const user = JSON.parse(localStorage.getItem("userInfo"));
@@ -103,8 +103,9 @@ function App() {
                 <NoteList
                   handleSetSearch={setSearch}
                   addNote={addNote}
-                  notes={notes.filter((e) =>
-                    e.heading.toLowerCase().includes(search)
+                  notes={notes.filter((e) =>{
+console.log(e)
+                      return e.heading.toLowerCase().includes(search)}
                   )}
                   handleDeleteNote={deleteNote}
                   handleSetNotes={setNotes}
