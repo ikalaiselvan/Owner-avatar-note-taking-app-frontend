@@ -128,8 +128,8 @@ function Signup() {
                 className="w-40 m-auto mb-4 px-5 py-2 bg-success fw-bold"
                 style={{
                   letterSpacing: "2px",
-                  backgroundImage:
-                    "linear-gradient(to right, rgb(224, 212, 224), rgb(64, 157, 64)",
+                  // backgroundImage:
+                  //   "linear-gradient(to right, rgb(224, 212, 224), rgb(64, 157, 64)",
                 }}
               >
                 Register
