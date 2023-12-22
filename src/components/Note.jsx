@@ -10,6 +10,7 @@ export default function Note({
   date,
   background,
   handleDeleteNote,
+  updateNote,
 }) {
   const color = ["#00FFFF", "#8A2BE2", "#98FB98", "#fe9b72", "#e4ee91"];
 
@@ -27,11 +28,9 @@ export default function Note({
     const newColor = color.filter((color, index) => index === ind);
 
     const newArray = notes.map((e) => {
-      console.log(e._id, id);
       if (e._id === id) {
         e.background = newColor.toString();
       }
-      console.log(e);
       return e;
     });
 
@@ -46,6 +45,7 @@ export default function Note({
         } else if (e.heading) {
           note.heading = e.heading;
         }
+        updateNote(note);
       }
     });
   };
@@ -68,15 +68,17 @@ export default function Note({
         </div>
         <input
           name="heading"
-          className="heading p-1"
+          className="heading p-2 mt-2"
           onChange={(e) => handleChange({ heading: e.target.value })}
           defaultValue={heading}
+          style={{ background: "rgb(249 249 249 / 23%)", borderRadius: "5px" }}
         />
         <hr />
         <textarea
           name="body"
-          className="text-area p-1"
+          className="text-area p-3 mb-2"
           onChange={(e) => handleChange({ body: e.target.value })}
+          style={{ background: "rgb(249 249 249 / 23%)", borderRadius: "5px" }}
           defaultValue={body}
         ></textarea>
         <div className=" d-flex align-items-center justify-content-between note-footer">

@@ -12,6 +12,7 @@ import Signup from "./components/Signup";
 function App() {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   const user = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -25,18 +26,16 @@ function App() {
       });
       setNotes(response.data.data);
 
-      console.log(response);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      alert("Error fetching data:", error);
+
     }
   };
-
-    useEffect(() => {
-      if (user && user.token) {
-        getData(user.token);
-      }
-    },[])
-  
+  useEffect(() => {
+    if (user && user.token) {
+      getData(user.token);
+    }
+  }, []);
 
   useEffect(() => {
     if (notes == undefined) {
@@ -49,48 +48,69 @@ function App() {
 
   const postData = async () => {
     const user = JSON.parse(localStorage.getItem("userInfo"));
-    console.log("User Info:", user);
 
     let token = user.token;
+
+    // create Note
+    const date = new Date();
+    const newNote = {
+      heading: "",
+      body: "",
+      date: date.toLocaleDateString(),
+    };
+    const newNotes = [newNote, ...notes];
+    
+    // create Note
     try {
-      const response = await axios.post(`${API_URL}/home/data`, notes, {
+      await axios.post(`${API_URL}/home/data`, newNotes, {
         headers: {
           "Content-Type": "application/json",
           Authorization: token,
         },
       });
-      console.log(response);
+      await getData(token);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      alert("Error fetching data:", error);
+    }
+  };
+      const updateNote = async (data) => {
+      const user = JSON.parse(localStorage.getItem("userInfo"));
+      const token = user.token;
+
+      try {
+        await axios.put(`${API_URL}/home/data/${data._id}`,data, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        });
+        // await getData(token);
+      } catch (error) { 
+        alert("Error updating data:", error);
+      }
+    };
+
+  const deleteNote = async (id) => {
+    const user = JSON.parse(localStorage.getItem("userInfo"));
+    const token = user.token;
+
+    try {
+      await axios.delete(`${API_URL}/home/data/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+      await getData(token);
+    } catch (error) {
+      alert("Error fetching data:", error);
     }
   };
 
-  const [search, setSearch] = useState("");
-
-  const addNote = async () => {
-    const date = new Date();
-    const newNote = {
-      id: nanoid(),
-      heading: "New note",
-      body: "new content",
-      date: date.toLocaleDateString(),
-    };
-    const newNotes = [newNote, ...notes];
-    setNotes(newNotes);
-
-    postData();
-    
-  };
-
-  const deleteNote = (id) => {
-    const newNotes = notes.filter((e) => e._id != id);
-    console.log(id);
-    setNotes(newNotes);
-  };
   return (
     <>
       <Container fluid className="px-sm-5">
-        <Header postData={postData} getData={getData} />
+        <Header updateNote={updateNote} getData={getData} />
         <Routes>
           <Route path="/" element={<Signup />} />
           <Route path="/login" element={<Login loading={loading} />} />
@@ -102,13 +122,14 @@ function App() {
               element={
                 <NoteList
                   handleSetSearch={setSearch}
-                  addNote={addNote}
-                  notes={notes.filter((e) =>{
-console.log(e)
-                      return e.heading.toLowerCase().includes(search)}
-                  )}
+                  addNote={postData}
+                  notes={notes.filter((e) => {
+                    console.log(e);
+                    return e.heading.toLowerCase().includes(search);
+                  })}
                   handleDeleteNote={deleteNote}
                   handleSetNotes={setNotes}
+                  updateNote={updateNote}
                 />
               }
             />

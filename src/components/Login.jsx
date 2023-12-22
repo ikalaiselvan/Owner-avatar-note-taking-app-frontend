@@ -31,6 +31,7 @@ export default function Login({ loading }) {
       alert("Invalid User name and Password");
     } else if (response?.status) {
       localStorage.setItem("userInfo", JSON.stringify(response.data));
+      
       const user = await JSON.parse(localStorage.getItem("userInfo"));
       loading ? navigate("/login") : navigate("/home");
 
