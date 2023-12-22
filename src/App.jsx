@@ -27,7 +27,7 @@ function App() {
       setNotes(response.data.data);
 
     } catch (error) {
-      alert("Error fetching data:", error);
+      alert("Error getting data:", error);
 
     }
   };
@@ -36,6 +36,8 @@ function App() {
       getData(user.token);
     }
   }, []);
+  
+
 
   useEffect(() => {
     if (notes == undefined) {
@@ -43,10 +45,10 @@ function App() {
     } else {
       setLoading(false);
     }
-  }),
-    [notes];
+  },[notes]);
+    
 
-  const postData = async () => {
+    const postData = async () => {
     const user = JSON.parse(localStorage.getItem("userInfo"));
 
     let token = user.token;
@@ -70,25 +72,26 @@ function App() {
       });
       await getData(token);
     } catch (error) {
-      alert("Error fetching data:", error);
+      alert("Error while  post data:", error);
     }
   };
-      const updateNote = async (data) => {
-      const user = JSON.parse(localStorage.getItem("userInfo"));
-      const token = user.token;
 
-      try {
-        await axios.put(`${API_URL}/home/data/${data._id}`,data, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        });
-        // await getData(token);
-      } catch (error) { 
-        alert("Error updating data:", error);
-      }
-    };
+  const updateNote = async (data) => {
+  const user = JSON.parse(localStorage.getItem("userInfo"));
+  const token = user.token;
+
+  try {
+    await axios.put(`${API_URL}/home/data/${data._id}`,data, {
+      headers: {
+        "Content-Type": "application/json",
+          Authorization: token,
+      },
+    });
+      // await getData(token);
+    } catch (error) { 
+      alert("Error updating data:", error);
+    }
+  };
 
   const deleteNote = async (id) => {
     const user = JSON.parse(localStorage.getItem("userInfo"));
@@ -103,12 +106,12 @@ function App() {
       });
       await getData(token);
     } catch (error) {
-      alert("Error fetching data:", error);
+      alert("Error deliting data:", error);
     }
-  };
+  }
 
   return (
-    <>
+  <>
       <Container fluid className="px-sm-5">
         <Header updateNote={updateNote} getData={getData} />
         <Routes>

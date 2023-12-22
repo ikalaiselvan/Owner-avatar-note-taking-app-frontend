@@ -23,7 +23,7 @@ export default function Login({ loading }) {
   });
 
   const handSubmit = async (e) => {
-    console.log(e);
+    // console.log(e);
 
     const response = await axios.post(`${API_URL}/login`, e);
 
